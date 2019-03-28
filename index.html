@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>books</title>
+    <script>
+      (function () {
+        let desW = 750,
+          winW = document.documentElement.clientWidth,
+          ratio = winW/desW;
+        document.documentElement.style.fontSize = ratio *100 + 'px';
+      })();
+    </script>
   </head>
   <body>
     <div id="app"></div>
