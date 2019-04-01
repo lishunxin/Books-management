@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import HelloWorld from '../components/HelloWorld'
 import home from '../components/home'
 import putTheBook from '../components/putTheBook'
+import footer from '../components/footer'
+import setting from '../components/setting'
 
 Vue.use(Router)
 
@@ -19,9 +21,19 @@ export default new Router({
       component:home
     },
     {
-      path:'/',
+      path:'/putTheBook',
       name:'putTheBook',
       component:putTheBook
+    },
+    {
+      path:'footer',
+      name:'footer',
+      component:footer
+    },
+    {
+      path:'/',
+      name:'setting',
+      component:setting
     }
   ]
 })
