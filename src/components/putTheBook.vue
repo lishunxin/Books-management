@@ -1,88 +1,218 @@
 <template>
-<div>
-  <div class="header">
-    添书
+  <div class="putTheBook">
+    <header>添书</header>
+    <section>
+      <el-form :model="form" ref="form" :rules="rules" class="demo-ruleForm" label-width="2rem">
+        <el-form-item label="书名" prop="title_1">
+          <el-input v-model="form.title_1" placeholder="请输入书名"></el-input>
+        </el-form-item>
+        <el-form-item label="作者" prop="author_1">
+          <el-input v-model="form.author_1" placeholder="请输入作者"></el-input>
+        </el-form-item>
+        <el-form-item label="出版社" prop="press_1">
+          <el-input v-model="form.press_1" placeholder="请输入出版社"></el-input>
+        </el-form-item>
+        <el-form-item label="购买时间" prop="buy_time">
+          <el-date-picker
+            v-model="form.buy_time"
+            type="datetime"
+            placeholder="选择购买时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="价格" prop="price">
+          <el-input v-model="form.price" placeholder="请输入价格"></el-input>
+        </el-form-item>
+        <el-form-item label="上传封面" prop="book_pic">
+          <el-upload
+            class="avatar-uploader"
+            :action="url"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload">
+            <div class="img" v-if="imageUrl">
+              <img :src="imageUrl" class="avatar">
+            </div>
+            <i class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" :disabled="isSendIng" @click="toSend('form')">完成</el-button>
+        </el-form-item>
+      </el-form>
+    </section>
   </div>
-  <div class="line"></div>
-  <div class="main">
-    <div class="item">
-      <span>书名&nbsp;&nbsp;</span>
-      <input type="text" placeholder="请添加书名"/>
-    </div>
-    <div class="item">
-      <span>作者</span>
-      <input type="text" placeholder="请输入该作者名称"/>
-    </div>
-    <div class="item">
-      <span>出版社</span>
-      <input type="text" placeholder="请选择出版社"/>
-    </div>
-    <div class="item">
-      <span>购买时间</span>
-      <input type="text" placeholder="请选择购买时间"/>
-    </div>
-    <div class="item">
-      <span>价格</span>
-      <input type="text" placeholder="请选择价格"/>
-    </div>
-    <div class="line"></div>
-  </div>
-  <div class="putbook">
-    <p>添加封面（仅用于书架展示）</p>
-    <img src="../../src/assets/putbook.jpg"/>
-    <div>完成</div>
-  </div>
-</div>
 </template>
 
 <script>
-    export default {
-        name: "putTheBook"
+  export default {
+    name: "putTheBook",
+    data(){
+      return{
+        isSendIng: false,
+        rules: {
+          title_1: [
+            { required: true, message: '请输入书名', trigger: 'blur' }
+          ],
+          author_1: [
+            { required: true, message: '请输入作者', trigger: 'blur' }
+          ],
+          press_1: [
+            { required: true, message: '请输入出版社', trigger: 'blur' }
+          ],
+          buy_time: [
+            { required: true, message: '请输入购买时间', trigger: 'blur' }
+          ],
+          price: [
+            { required: true, message: '请输入价格', trigger: 'blur' }
+          ],
+          book_pic: [
+            { required: true, message: '请输入上传图片', trigger: 'blur' }
+          ]
+        },
+        imageUrl: '',
+        form:{
+          title_1: '',
+          author_1: '',
+          press_1: '',
+          buy_time: '',
+          price: '',
+          book_pic: '',
+          user_id: '55'
+        }
+      }
+    },
+    computed:{
+      url(){
+        return (process.env.NODE_ENV === 'development' ? '/api' : '')+"/uploadFile"
+      }
+    },
+    methods: {
+      handleAvatarSuccess(res, file) {
+        this.form.book_pic = res.status;
+        this.imageUrl = URL.createObjectURL(file.raw);
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg'||'image/png';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG PNG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      },
+      toSend(form){
+        this.$refs[form].validate((valid) => {
+          this.isSendIng = true;
+          if (valid) {
+            this.form.buy_time = this.form.buy_time.toISOString()
+            this.$http.post((process.env.NODE_ENV === 'development' ? '/api' : '')+'/logined/addBook', this.form)
+              .then((res)=>{
+                this.isSendIng = false;
+                if(!res.data){return false;}
+                if(res.data.status === -1){
+                  this.$message({
+                    type: 'error',
+                    message: '添加失败',
+                    center: true
+                  });
+                  return false;
+                }
+                alert('添加成功');
+                console.log('添加成功')
+              })
+              .catch((res)=>{
+                this.isSendIng = false;
+                console.log(res);
+              })
+          } else {
+            this.isSendIng = false;
+            console.log('error add!');
+            return false;
+          }
+        });
+      }
     }
+  }
 </script>
 
-<style scoped>
-  .header{
-    font-size: large;
-  }
-  .main{
-    text-align: left;
-    margin-left: 15px;
-  }
-  .item{
-    margin-bottom: 0.23rem;
-  }
-  .item span{
-    font-size:16px;
-    text-align: left;
-  }
-  .item input{
-    border:0;
-  }
-  .line{
+<style >
+  /*rem = 100px*/
+  .putTheBook header{
+    position: relative;
     width: 100%;
-    height: 0.15rem;
-    background-color: rgb(241,241,241);
-  }
-  .putbook{
-    text-align: left;
-    margin-left: 10px;
-  }
-.putbook img{
-  width: 0.65rem;
-  height: 0.65rem;
-  border: 1px solid #000;
-}
-  .putbook p{
-    font-size: 16px;
-  }
-  .putbook div{
+    height: 0.9rem;
+    line-height: 0.9rem;
+    font-size: 0.38rem;
     text-align: center;
+    vertical-align: middle;
+    border-bottom: 2px solid #d8d8d8;
+  }
+  .putTheBook section .demo-ruleForm{
+    margin: 0.4rem 0.4rem 0 0;
+  }
+  .putTheBook section .demo-ruleForm a{
+    text-decoration:none;
+  }
+  .putTheBook section .demo-ruleForm .avatar-uploader{
+    width: 3rem;
+    height: 4rem;
     margin: 0 auto;
-    width: 6.33rem;
-    height:0.8rem;
-    font-size: 20px;
-    line-height: 0.8rem;
-    background-color: rgb(241,241,241);
+    background-color: #ccc;
+  }
+  .putTheBook section .demo-ruleForm .avatar-uploader .el-upload{
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .putTheBook section .demo-ruleForm .avatar-uploader .avatar{
+    width: 100%;
+    height: 100%;
+  }
+  .putTheBook section .demo-ruleForm .avatar-uploader .img{
+    width: 100%;
+    height: 100%;
+  }
+  .putTheBook section .demo-ruleForm .avatar-uploader .el-icon-plus{
+    position: absolute;
+    bottom: 0.08rem;
+    right: 0.06rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    font-size: 0.3rem;
+    color: #FFF;
+    border-radius: 50%;
+    background-color: #5687ac;
+  }
+  .putTheBook section .demo-ruleForm .el-input{width: 100%}
+  .putTheBook section .demo-ruleForm .el-input input{
+    font-size: .3rem;
+    border:none;
+    background-color: #f5f5f5;
+  }
+  .putTheBook section .demo-ruleForm .el-input__inner:-moz-placeholder{
+    color: #bfbfbf;
+  }
+  .putTheBook section .demo-ruleForm .el-input__inner::-webkit-input-placeholder{
+    color: #bfbfbf;
+  }
+  .putTheBook section .demo-ruleForm .el-input__inner:-ms-input-placeholder{
+    color: #bfbfbf;
+  }
+  .putTheBook section .el-button{
+    width: 100%;
+    transform: translateX(-0.6rem);
+  }
+  .el-picker-panel{
+    width: 6rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+  .el-time-panel{
+    width: 3rem
   }
 </style>

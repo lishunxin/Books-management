@@ -1,7 +1,7 @@
 <template>
     <div class="setting">
       <div class="set">
-        < 设置
+        &lt; 设置
       </div>
       <div class="line"></div>
       <div class="personage set2">

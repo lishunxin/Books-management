@@ -5,15 +5,38 @@ import home from '../components/home'
 import putTheBook from '../components/putTheBook'
 import footer from '../components/footer'
 import setting from '../components/setting'
+import login from '../components/login'
+import signin from '../components/signin'
+import writeMore from '../components/writeMore'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
+      path: '/',
+      name: 'login',
+      component: login
+    },
+    {
       path: '/HelloWorld',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: signin
+    },
+    {
+      path: '/writeMore',
+      name: 'writeMore',
+      component: writeMore
     },
     {
       path: '/home',
@@ -31,7 +54,7 @@ export default new Router({
       component:footer
     },
     {
-      path:'/',
+      path:'/setting',
       name:'setting',
       component:setting
     }
