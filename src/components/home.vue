@@ -1,30 +1,30 @@
 <template>
  <div>
    <div class="search">
-     <el-input
+     <el-input style="width: 98%;"
        placeholder="大家都在搜索：围城"
        prefix-icon="el-icon-search">
      </el-input>
    </div>
-   <div class="ul">
-     <el-menu :default-active="$route.path" class="nav"  mode="horizontal" @select="handleSelect">
-       <el-menu-item index="1" style="padding: 0 11px" >关注</el-menu-item>
-       <el-menu-item index="2" style="padding: 0 11px">首页</el-menu-item>
-       <el-menu-item index="3" style="padding: 0 11px">订阅</el-menu-item>
-       <el-menu-item index="4" style="padding: 0 11px">热门</el-menu-item>
-       <el-menu-item index="5" style="padding: 0 11px">视频听说</el-menu-item>
-       <el-menu-item index="6" style="padding: 0 11px">本地阅读</el-menu-item>
+   <div class="ul" style="width: 98%">
+     <el-menu :default-active="$route.path" class="nav"  mode="horizontal" @select="handleSelect" style="width: 100%">
+       <el-menu-item index="1" style="padding: 0 3% 0 2%" >关注</el-menu-item>
+       <el-menu-item index="2" style="padding: 0 3%">首页</el-menu-item>
+       <el-menu-item index="3" style="padding: 0 3%">订阅</el-menu-item>
+       <el-menu-item index="4" style="padding: 0 3%">热门</el-menu-item>
+       <el-menu-item index="5" style="padding: 0 3%">视频听说</el-menu-item>
+       <el-menu-item index="6" style="padding:  0 2% 0 3%">本地阅读</el-menu-item>
      </el-menu>
    </div>
        <div class="block">
-         <el-carousel height="3.67rem" >
-           <el-carousel-item  >
+         <el-carousel height="3.67rem" style="width: 100%;">
+           <el-carousel-item >
              <img src="../../src/assets/swiper1.png"/>
            </el-carousel-item>
-           <el-carousel-item >
+           <el-carousel-item style="width: 100%;">
              <img src="../../src/assets/swiper2.png"/>
            </el-carousel-item>
-           <el-carousel-item >
+           <el-carousel-item style="width: 100%;">
              <h3>3</h3>
            </el-carousel-item>
 
@@ -32,94 +32,139 @@
        </div>
    <div class="fine">
      <div class="fineText">
-       <span style="text-align: left">精品解读</span>
-       <span style="text-align: right">更多</span>
+       <span style="text-align: left;margin-right: 25%">精品解读</span>
+       <span style="text-align: right;margin-left: 15%">更多</span>
      </div>
-     <div>
-       <el-row :gutter="40">
-         <el-col :span="4">
-           <div class="grid-content bg-purple">
-             <img src="../../src/assets/fine1.png"/>
-           </div>
-         </el-col>
-         <el-col :span="4">
-           <div class="grid-content bg-purple">
-             <img src="../../src/assets/fine2.png"/>
-           </div>
-         </el-col >
-         <el-col :span="4">
-           <div class="grid-content bg-purple">
-             <img src="../../src/assets/fine3.png"/>
-           </div>
-         </el-col>
-         <el-col :span="4">
-           <div class="grid-content bg-purple">
-             <img src="../../src/assets/fine4.png"/>
-           </div>
-         </el-col>
-       </el-row>
+     <div class="book">
+       <ul style="width: 100%">
+         <li  v-for="item in options"> <img :src="`http://134.175.148.124/img/${item.book_pic}`"/><span>{{item.title_1}}</span></li>
+       </ul>
      </div>
    </div>
      <div class="line"></div>
-     <div class="newShare">
-       <div class="joke1">
+   <p style="font-size: 14px;text-align: left;margin:0 0 18px 10px">最新共享</p>
+   <div class="newShare">
+     <ul>
+       <li style="list-style: none" v-for="item in options2" class="joke">
          <div class="jokeLeft">
-           <img src="../../src/assets/joke1.png"/>
+           <img :src="`http://134.175.148.124/img/${item.book_pic}`"/>
          </div>
          <div class="jokeRight">
-           <p>抱着清醒游离戏谑的心来过生活把激荡宏阔留给艺术</p>
-           <p>【戏年】钱小七七 3分钟前</p>
+           <p>{{item.brief}}</p>
+           <br/><br/><br/><br/><br/>
+           <p>{{item.nickname}}钱小七七 3分钟前</p>
          </div>
-       </div>
-       <div class="joke2">
-         <div class="jokeLeft">
-           <img src="../../src/assets/joke2.png"/>
-         </div>
-         <div class="jokeRight">
-           <p>鬼谷子纵横绝学智慧谋略感悟及历史故事</p>
-           <p>【鬼谷子】小拉 5分钟前</p>
-         </div>
-       </div>
-       <div class="joke3">
-         <div class="jokeLeft">
-           <img src="../../src/assets/joke3.png"/>
-         </div>
-         <div class="jokeRight">
-           <p>拼接收账素材，用艺术读解时尚数据用时尚诠释艺术的生活</p>
-           <p>【VISION】芒果人生 10分钟前</p>
-         </div>
-       </div>
-     </div>
-
+         <div class="clear"></div>
+       </li><br/>
+     </ul>
+   </div>
+<footerWrap></footerWrap>
  </div>
 </template>
 
 <script>
+  import footerWrap from './footer-wrap'
   import ElementUI from 'element-ui'
+  import axios from 'axios'
     export default {
-        name: "home"
+    components:{footerWrap: footerWrap},
+        name: "home",
+      data(){
+          return{
+            options:'',
+            title_1:'',
+            book_pic:'',
+            options2:'',
+            nickname:'',
+            brief:''
+          }
+      },
+      created:function () {
+        axios.get('http://134.175.148.124/getRealBooks', {
+        params: {
+        }
+      }).then((response) => {
+        console.log(response.data)
+        this.options = response.data
+
+      })
+        .catch(function (err) {
+          console.log(err);
+        })
+      },
+      methods:{
+
+      },
+      mounted:function () {
+        axios.get('http://134.175.148.124/getNewBook', {
+          params: {
+            "count":"4"
+          }
+        }).then((response) => {
+          console.log(response.data)
+          this.options2 = response.data
+
+        })
+          .catch(function (err) {
+            console.log(err);
+          })
+      }
     }
 </script>
 
 <style scoped>
 .search{
-  width:100%;
+  width:96%;
   margin-bottom: 0.19rem;
+}
+.clear{
+  clear: both;
+}
+.line{
+  width: 100%;
+  height: 10px;
+  background:rgba(245,245,245,0.7);
+}
+.ul{
+  margin-bottom: 10px;
 }
 .search input{
     margin:0 auto;
   height: 0.65rem;
-  width: 80%;
+  width: 96%;
   }
 .nav{
+  width: 90%;
+  margin:0 5%;
   text-color:#ccc;
   active-text-color:#000;
   default-openeds:6;
+}
+.book{
+  width: 100%;
+  margin-top: 0.3rem;
+}
+.book ul{
+  width: 100%;
+}
+.book ul li{
+  font-size: 14px;
+  float: left;
+  list-style: none;
+  width: 20%;
+  margin: 0.4rem 2.2%;
+}
+.book ul li img{
+  width: 100%;
 }
 .block{
   width: 100%;
   height: 3.67rem;
   border-radius: 50px;
+  margin-bottom: 0.3rem;
+}
+.block img{
+  width: 90%;
 }
   .fine{
     font-size: 14px;
@@ -135,19 +180,23 @@
   row-bg{
     padding: 10px 0;
   }
-  .joke1,.joke2,.joke3{
+  .joke{
+    width: 100%;
     font-size: 16px;
-    height: 5.03rem;
-    overflow: hidden;
-    zoom: 1;
+    margin-bottom: 10px;
+
   }
   .jokeLeft{
     float: left;
     width: 40%;
   }
+.jokeLeft img{
+  width: 100px;
+  height: 150px;
+}
   .jokeRight{
     float: right;
     height: 1.03rem;
-    width: 50%;
+    width: 58%;
   }
 </style>
