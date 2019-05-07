@@ -8,6 +8,9 @@ import setting from '../components/setting'
 import login from '../components/login'
 import signin from '../components/signin'
 import writeMore from '../components/writeMore'
+import idManagement from '../components/idManagement'
+import homepage from '../components/homepage'
+import completeInformation from '../components/completeInformation'
 
 Vue.use(Router)
 
@@ -57,6 +60,21 @@ export default new Router({
       path:'/setting',
       name:'setting',
       component:setting
+    },
+    {
+      path:'/idManagement',
+      name:'idManagement',
+      component:idManagement
+    },
+    {
+      path:'/homepage',
+      name:'homepage',
+      component:homepage
+    },
+    {
+      path:'/completeInformation',
+      name:'completeInformation',
+      component:completeInformation
     }
   ]
 })
