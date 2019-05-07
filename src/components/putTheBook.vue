@@ -1,6 +1,9 @@
 <template>
   <div class="putTheBook">
-    <header>添书</header>
+    <div class="header">
+    <i class="el-icon-arrow-left" @click="back"></i>
+    <span class="case">添书</span>
+   </div>
     <section>
       <el-form :model="form" ref="form" :rules="rules" class="demo-ruleForm" label-width="2rem">
         <el-form-item label="书名" prop="title_1">
@@ -87,6 +90,9 @@
       }
     },
     methods: {
+      back:function () {
+        this.$router.back(-1)
+      },
       handleAvatarSuccess(res, file) {
         this.form.book_pic = res.status;
         this.imageUrl = URL.createObjectURL(file.raw);
@@ -140,6 +146,20 @@
 
 <style >
   /*rem = 100px*/
+  .header{
+    width: 80%;
+    font-size: 28px;
+    margin-bottom: 0.5rem;
+  }
+  .el-icon-arrow-left{
+    margin-left: 10%;
+  }
+  .header i{
+    font-size: 26px;
+  }
+  .case{
+    margin: 0 1.9rem;
+  }
   .putTheBook header{
     position: relative;
     width: 100%;

@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="header">
-    <i class="el-icon-arrow-left"></i>
+    <i class="el-icon-arrow-left" @click="back"></i>
     <span class="case">书柜</span>
     <i class="el-icon-search"></i>
   </div>
@@ -17,7 +17,7 @@
   </div>
   <div class="book">
     <ul>
-      <li  v-for="item in options"> <img :src="`http://134.175.148.124/img/${item.book_pic}`"/><span>{{item.title_1}}</span></li>
+      <li @click="todetails" v-for="item in options"> <img :src="`http://134.175.148.124/img/${item.book_pic}`"/><span>{{item.title_1}}</span></li>
     </ul>
 
   </div>
@@ -36,6 +36,13 @@
           }
       },
       methods:{
+        back:function () {
+          this.$router.back(-1)
+        },
+        todetails:function () {
+          this.$router.push({path:'/details'})
+
+        },
           getbook:function () {
               axios.get('http://134.175.148.124/getBooks', {
                 params: {

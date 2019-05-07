@@ -1,11 +1,22 @@
 <template>
     <div class="footer-wrap" id="footer-wrap">
-      <div class="yundu float"><img src="../../src/assets/icon/footer1.png"/></div>
-      <div class="shugui float"><img src="../../src/assets/icon/footer2.png"/></div>
-      <div class="float" style="width: 20%"><img src="../../src/assets/icon/footer5.png"/></div>
-      <div class="shuqian float"><img src="../../src/assets/icon/footer3.png"/></div>
-      <div class="mine float"><img src="../../src/assets/icon/footer4.png"/></div>
-      <div class="clear"></div>
+      <router-link :to="{path: '/#', query: {'uid': this.uId}}">
+      <img src="../../src/assets/icon/footer1.png"/>
+    </router-link>
+      <router-link :to="{path: '/bookcase', query: {'uid': this.uId}}">
+        <img src="../../src/assets/icon/footer2.png"/>
+      </router-link>
+      <router-link :to="{path: '/putTheBook', query: {'uid': this.uId}}">
+        <img src="../../src/assets/icon/footer5.png"/>
+      </router-link>
+      <router-link :to="{path: '/home', query: {'uid': this.uId}}">
+        <img src="../../src/assets/icon/footer3.png"/>
+      </router-link>
+      <router-link :to="{path: '/homepage', query: {'uid': this.uId}}">
+        <img src="../../src/assets/icon/footer4.png"/>
+      </router-link>
+
+
     </div>
 </template>
 
@@ -22,21 +33,15 @@
     bottom: 0;
     width: 100%;
     height: 1rem;
+    overflow: hidden;
     background-color: rgb(247,247,247);
   }
-  .clear{
-    clear: both;
-  }
-  .float{
-    float: left;
-    width: 14%;
+
+  .footer-wrap img{
+    display: block;
+    width: 0.8rem;
     height:1rem;
     font-size: 16px;
-    margin: 0 2%;
-  }
-  .float img{
-    margin-bottom: 0.1rem;
-    width: 0.8rem;
-    height: 1rem;
+    margin: 0 0.37rem 0.1rem 0.37rem;
   }
 </style>

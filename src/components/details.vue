@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="header">
-    <i class="el-icon-arrow-left"></i>
+    <i class="el-icon-arrow-left" @click="back"></i>
     <span class="case">云读详情</span>
 
   </div>
@@ -50,7 +50,9 @@
           })
       },
       methods:{
-
+      back:function () {
+        this.$router.back(-1)
+      }
       }
     }
 </script>

@@ -35,7 +35,7 @@
        <span style="text-align: left;margin-right: 25%">精品解读</span>
        <span style="text-align: right;margin-left: 15%">更多</span>
      </div>
-     <div class="book">
+     <div class="book" @click="todetails">
        <ul style="width: 100%">
          <li  v-for="item in options"> <img :src="`http://134.175.148.124/img/${item.book_pic}`"/><span>{{item.title_1}}</span></li>
        </ul>
@@ -43,7 +43,7 @@
    </div>
      <div class="line"></div>
    <p style="font-size: 14px;text-align: left;margin:0 0 18px 10px">最新共享</p>
-   <div class="newShare">
+   <div class="newShare" @click="todetails">
      <ul>
        <li style="list-style: none" v-for="item in options2" class="joke">
          <div class="jokeLeft">
@@ -93,7 +93,10 @@
         })
       },
       methods:{
+        todetails:function () {
+          this.$router.push({path:'/details'})
 
+        }
       },
       mounted:function () {
         axios.get('http://134.175.148.124/getNewBook', {

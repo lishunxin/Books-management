@@ -9,7 +9,7 @@ import login from '../components/login'
 import signin from '../components/signin'
 import writeMore from '../components/writeMore'
 import bookcase from '../components/bookcase'
-import detail from '../components/details'
+import details from '../components/details'
 
 Vue.use(Router)
 
@@ -26,9 +26,9 @@ export default new Router({
       component:bookcase
     },
     {
-      path:'/detail',
-      name:'detail',
-      component:detail
+      path:'/details',
+      name:'details',
+      component:details
     },
     {
       path: '/HelloWorld',
