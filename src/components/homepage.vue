@@ -66,18 +66,18 @@
       </div>
     </div>
   </section>
-  <footer></footer>
+  <footerWrap></footerWrap>
 </div>
 </template>
 
 <script>
-import footer from './footer.vue'
+import footerWrap from './footer-wrap.vue'
 import axios from 'axios'
 import qs from 'qs'
 export default {
   name: "homepage",
   components:{
-    'footer':footer
+    'footerWrap':footerWrap
   },
   data(){
     return{

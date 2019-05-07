@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '../components/HelloWorld'
 import home from '../components/home'
 import putTheBook from '../components/putTheBook'
-import footer from '../components/footer'
+import footerWrap from '../components/footer-wrap'
 import setting from '../components/setting'
 import login from '../components/login'
 import signin from '../components/signin'
@@ -11,15 +11,28 @@ import writeMore from '../components/writeMore'
 import idManagement from '../components/idManagement'
 import homepage from '../components/homepage'
 import completeInformation from '../components/completeInformation'
+import bookcase from '../components/bookcase'
+import details from '../components/details'
+
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path:'/bookcase',
+      name:'bookcase',
+      component:bookcase
+    },
+    {
+      path:'/details',
+      name:'details',
+      component:details
     },
     {
       path: '/HelloWorld',
@@ -42,7 +55,7 @@ export default new Router({
       component: writeMore
     },
     {
-      path: '/home',
+      path: '/',
       name:'home',
       component:home
     },
@@ -52,9 +65,9 @@ export default new Router({
       component:putTheBook
     },
     {
-      path:'footer',
-      name:'footer',
-      component:footer
+      path:'/footer-wrap',
+      name:'footer-wrap',
+      component:footerWrap
     },
     {
       path:'/setting',
