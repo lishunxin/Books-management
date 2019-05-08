@@ -91,13 +91,16 @@ export default {
     this.getData(),
     this.getNew()
   },
+  match:{
+
+  },
   methods:{
     getData:function () {
       axios.get(
-        'http://134.175.148.124:8087/userLogedin/homepage',
+        '/userLogedin/homepage',
       {
         params:{
-          id: 34
+          id: this.id
         }
       }).catch(error => function (){
         console.log(error)
@@ -110,7 +113,7 @@ export default {
     },
     getNew : function () {
       axios.get(
-        'http://134.175.148.124:80/getBooksByUserId',
+        '/getBooksByUserId',
         {
           params:{
             userId: 35

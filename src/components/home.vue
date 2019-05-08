@@ -66,42 +66,36 @@
   import footerWrap from './footer-wrap'
   import ElementUI from 'element-ui'
   import axios from 'axios'
-    export default {
-    components:{footerWrap: footerWrap},
-        name: "home",
-      data(){
-          return{
-            options:'',
-            title_1:'',
-            book_pic:'',
-            options2:'',
-            nickname:'',
-            brief:''
-          }
-      },
-      created:function () {
-        axios.get('http://134.175.148.124/getRealBooks', {
-        params: {
-        }
-      }).then((response) => {
-        console.log(response.data)
-        this.options = response.data
+  export default {
+    components: {footerWrap: footerWrap},
+    name: "home",
+    data() {
+      return {
+        options: '',
+        title_1: '',
+        book_pic: '',
+        options2: '',
+        nickname: '',
+        brief: ''
+      }
+    },
+    created: {
+      getbook: function () {
+        axios.get('/getRealBooks', {
+          params: {}
+        }).then((response) => {
+          console.log(response.data)
+          this.options = response.data
 
-      })
-        .catch(function (err) {
-          console.log(err);
         })
+          .catch(function (err) {
+            console.log(err);
+          })
       },
-      methods:{
-        todetails:function () {
-          this.$router.push({path:'/details'})
-
-        }
-      },
-      mounted:function () {
-        axios.get('http://134.175.148.124/getNewBook', {
+      getAbook: function () {
+        axios.get('/getNewBook', {
           params: {
-            "count":"4"
+            "count": "4"
           }
         }).then((response) => {
           console.log(response.data)
@@ -111,8 +105,16 @@
           .catch(function (err) {
             console.log(err);
           })
+
+      },
+
+      methods: {
+        todetails: function () {
+          this.$router.push({path: '/details'})
+        }
       }
     }
+  }
 </script>
 
 <style scoped>

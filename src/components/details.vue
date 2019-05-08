@@ -7,7 +7,7 @@
   </div>
   <div class="detail">
     <div class="left">
-      <img :src="`http://134.175.148.124/img/${book_pic}`"/>
+      <img :src="`/img/${book_pic}`"/>
     </div>
     <div class="right">
       <h3>{{title_1}}</h3>
@@ -35,7 +35,7 @@
           }
       },
       created:function(){
-        axios.get('http://134.175.148.124/getABook', {
+        axios.get('/getABook', {
           params: {
             'bookId': "15"
           }

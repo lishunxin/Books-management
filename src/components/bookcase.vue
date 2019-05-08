@@ -44,7 +44,7 @@
 
         },
           getbook:function () {
-              axios.get('http://134.175.148.124/getBooks', {
+              axios.get('/getBooks', {
                 params: {
                 'count': "10"
               }

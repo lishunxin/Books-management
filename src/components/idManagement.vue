@@ -4,8 +4,8 @@
       <section>
         <div class="portrait">
           <span class="information">账号信息</span>
-          <img src="../assets/portrait.jpg" alt="head portrait">
-          <span id="name">这是一个id</span>
+          <img :src="personal.head_pic" alt="head portrait">
+          <span id="name">{{personal.nickname}}</span>
           <router-link to="idDetails" tag="i" class="el-icon-arrow-right"></router-link>
         </div>
         <div class="sexAndAge">
@@ -21,17 +21,17 @@
         <div class="other">
           <div class="tel">
             <span class="information">手机号码</span>
-            <span id="telNum">13399001234</span>
+            <span id="telNum">{{personal.phone}}</span>
             <router-link to="idDetails" tag="i" class="el-icon-arrow-right"></router-link>
           </div>
           <div class="mailbox">
             <span class="information">邮箱</span>
-            <span id="mailboxNum">123456789@qq.com</span>
+            <span id="mailboxNum">{{personal.e_mail}}</span>
             <router-link to="idDetails" tag="i" class="el-icon-arrow-right"></router-link>
           </div>
           <div class="signature">
             <span class="information">个性签名</span>
-            <span id="signatureNum">未设置</span>
+            <span id="signatureNum">{{personal.personality_signature}}</span>
             <router-link to="idDetails" tag="i" class="el-icon-arrow-right"></router-link>
           </div>
         </div>
@@ -55,8 +55,32 @@
     name: "idManagement",
     data(){
       return{
-        options:areajson //areajson为从areaJson引入的json数据
+        options:areajson, //areajson为从areaJson引入的json数据
+        personal:[]
       }
+    },
+    created:function(){
+      axios.get(
+        '/userLogedin/idManagement',
+        {
+          params:{
+            id:this.id
+          }
+        }).catch(error => function () {
+          console.log(error)
+        }).then((res) => {
+          console.log(res.data)
+          this.personal = res.data
+          if(this.personal.nickname === null){
+            this.personal.nickname = '编辑你的姓名吧'
+          }else if(this.personal.phone === null){
+            this.personal.phone = '手机号码呢'
+          }else if(this.personal.e_mail === null){
+            this.personal.e_mail = '邮箱呢'
+          }else if(this.personal.personality_signature === null){
+            this.personal.personality_signature = '个性签名呢'
+          }
+       })
     },
     methods:{
 

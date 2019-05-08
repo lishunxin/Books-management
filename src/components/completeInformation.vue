@@ -13,10 +13,10 @@
       <el-input v-model="input" placeholder="输入你的名字吧" class="name"></el-input>
       <el-select v-model="value" placeholder="选择自己的性别吧" class="sex">
         <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
+          v-for="sex in options"
+          :key="sex.value"
+          :label="sex.label"
+          :value="sex.value">
         </el-option>
      </el-select>
     <el-select v-model="value" placeholder="你的年龄呢" class="age">
@@ -30,7 +30,7 @@
     <p>已对以上信息加密</p>
     <el-form>
       <el-form-item>
-        <router-link to="/home"><el-button type="primary" @click="tohome">进入云读</el-button></router-link>
+        <router-link to="/"><el-button type="primary" @click="tohome">进入云读</el-button></router-link>
       </el-form-item>
     </el-form>
     </el-main>
@@ -63,17 +63,15 @@
         this.imageUrl = URL.createObjectURL(file.raw);
       },
       tohome:function () {
-        let data = {
-          name : this.name,
-          sex : this.sex,
-          age : this.age,
-          imageUrl : this.imageUrl
-        }
-        axios({
-          method: 'get',
-          url:'http://134.175.148.124:8086/userLogedin/homepage',
-          data:data,
-          headers:{'Content-Type':'application/json'}
+        axios.get(
+          '/userLogedin/completeInformation',
+          {
+            params:{
+              "name" : this.input,
+              "sex" : this.options.value,
+              "age" : this.value,
+              "imageUrl" : this.imageUrl
+            }
         }).catch(error => function (){
           console.log(error)
         }).then((response) => {
