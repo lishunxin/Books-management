@@ -4,7 +4,7 @@
       <section>
         <div class="portrait">
           <span class="information">账号信息</span>
-          <img :src="personal.head_pic" alt="head portrait">
+          <img :src="`http://134.175.148.124/img/${personal.head_pic}`">
           <span id="name">{{personal.nickname}}</span>
           <router-link to="idDetails" tag="i" class="el-icon-arrow-right"></router-link>
         </div>
@@ -61,10 +61,10 @@
     },
     created:function(){
       axios.get(
-        '/userLogedin/idManagement',
+        'http://134.175.148.124:80/logined/userinfo',
         {
           params:{
-            id:this.id
+            id:34
           }
         }).catch(error => function () {
           console.log(error)
@@ -130,6 +130,8 @@
   position: absolute;
   top:0.425rem;
   right: 2rem;
+  font-size:0.22rem;
+  text-align:center;
 }
 .portrait #name,#telNum,#mailboxNum,#signatureNum{
   font-size: 0.22rem;

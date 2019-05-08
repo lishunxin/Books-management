@@ -28,8 +28,9 @@
         <span>我的书架</span>
         <div class="newBook" v-show="newShow">
           <span>新增</span>
-          <img src="../assets/fine1.png" alt="newBook1">
-          <img src="../assets/fine2.png" alt="newBook2">
+          <li style="list-style: none" v-for="item in newData[0]">
+            <img :src="`http://134.175.148.124/img/${item.book_pic}`">
+          </li>
         </div>
         <router-link to="" tag="i" class="el-icon-arrow-right"></router-link>
       </div>
@@ -97,10 +98,10 @@ export default {
   methods:{
     getData:function () {
       axios.get(
-        '/userLogedin/homepage',
+        'http://134.175.148.124:8087/userLogedin/homepage',
       {
         params:{
-          id: this.id
+          id: 34
         }
       }).catch(error => function (){
         console.log(error)
@@ -113,21 +114,22 @@ export default {
     },
     getNew : function () {
       axios.get(
-        '/getBooksByUserId',
+        'http://134.175.148.124/getBooksByUserId',
         {
           params:{
-            userId: 35
+            userId: 35,
+            count:2
           }
       }).catch(error => function (){
         console.log(error)
       }).then((res) => {
+        console.log(res.data)
         let newData = res.data
-        if(newData === null){
-          this.newShow = false
-        }else if(newData.length > 3){
-          newData.length = 2
+        if(newData.length!==0){
+          this.newShow = true
         }
         this.newData.push(newData)
+        console.log(this.newData)
       })
     }
   }
@@ -240,7 +242,11 @@ export default {
   font-size:0.3rem;
   vertical-align: middle;
 }
-.newBook img{
+.newBook li{
+  display: inline-block;
+  margin-right: 0.05rem;
+}
+.newBook li img{
   width:0.5rem;
   height:0.65rem;
   border-radius: 0.05rem;

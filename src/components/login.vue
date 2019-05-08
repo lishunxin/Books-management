@@ -38,6 +38,7 @@
         name: "login",
         data(){
             return{
+                id:'',
                 isLoginIng: false,
                 rules: {
                   user: [
@@ -71,7 +72,7 @@
                     return false;
                   }
                   alert(res.data.status);
-                  console.log('登录成功')
+                  this.id = res.data.status
                 })
                 .catch((res)=>{
                   this.isLoginIng = false;

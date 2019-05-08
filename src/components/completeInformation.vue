@@ -63,16 +63,18 @@
         this.imageUrl = URL.createObjectURL(file.raw);
       },
       tohome:function () {
-        axios.get(
-          '/userLogedin/completeInformation',
+        axios.post(
+          'http://134.175.148.124/logined/updatebasic',
           {
-            params:{
-              "name" : this.input,
-              "sex" : this.options.value,
-              "age" : this.value,
-              "imageUrl" : this.imageUrl
+            params: {
+              id : 34,
+              name : this.input,
+              sex : this.options.value,
+              age : this.ageOptions.value,
+              imageUrl : this.imageUrl
             }
         }).catch(error => function (){
+          console.log(1)
           console.log(error)
         }).then((response) => {
           console.log(response)
