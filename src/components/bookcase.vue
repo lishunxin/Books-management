@@ -69,10 +69,10 @@
     margin-bottom: 0.3rem;
   }
   .el-icon-arrow-left{
-    margin-right: 24%;
+    margin-right: 2rem;
   }
   .el-icon-search{
-    margin-left: 24%;
+    margin-left: 2rem;
   }
   .header i{
     font-size: 26px;
