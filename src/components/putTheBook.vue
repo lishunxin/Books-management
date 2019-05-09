@@ -51,6 +51,7 @@
     name: "putTheBook",
     data(){
       return{
+        id:'',
         isSendIng: false,
         rules: {
           title_1: [
@@ -88,6 +89,10 @@
       url(){
         return (process.env.NODE_ENV === 'development' ? '/api' : '')+"/uploadFile"
       }
+    },
+    created:function(){
+      let uid = this.$route.query.id
+      this.id = uid
     },
     methods: {
       back:function () {

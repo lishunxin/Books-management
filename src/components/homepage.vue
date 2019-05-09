@@ -1,13 +1,13 @@
 <template>
 <div class="homepage">
-  <header>我<router-link to="/mailbox" tag="i" class="el-icon-message"></router-link></header>
+  <header>我<router-link :to="{path:'/mailbox',query:{id:this.id}}" tag="i" class="el-icon-message"></router-link></header>
   <section>
     <div class="information">
       <div class="portrait"><img :src="homeData.head_pic" alt="head-portrait"></div>
       <h1>{{homeData.nickname}}</h1>
       <p>{{homeData.personality_signature}}</p>
       <h3>{{homeData.id}}</h3>
-      <router-link to="/idManagement" tag="i" class="el-icon-arrow-right"></router-link>
+      <router-link :to="{path:'/idManagement',query:{id:this.id}}" tag="i" class="el-icon-arrow-right"></router-link>
     </div>
     <div class="about-book">
       <div class="about-me">
@@ -32,11 +32,11 @@
             <img :src="`http://134.175.148.124/img/${item.book_pic}`">
           </li>
         </div>
-        <router-link to="" tag="i" class="el-icon-arrow-right"></router-link>
+        <router-link :to="{path:'',query:{id:this.id}}" tag="i" class="el-icon-arrow-right"></router-link>
       </div>
       <div class="read-book">
         <span>已读书籍</span>
-        <router-link to="" tag="i" class="el-icon-arrow-right"></router-link>
+        <router-link :to="{path:'',query:{id:this.id}}" tag="i" class="el-icon-arrow-right"></router-link>
       </div>
     </div>
     <div class="p-and-n">
@@ -54,16 +54,16 @@
     <div class="other">
       <div class="q-and-a">
         <span>我的问答</span>
-        <router-link to="" tag="i" class="el-icon-arrow-right"></router-link>
+        <router-link :to="{path:'',query:{id:this.id}}" tag="i" class="el-icon-arrow-right"></router-link>
       </div>
       <div class="personal-setting">
         <span>隐私设置</span>
         <p>分享对谁可见</p>
-        <router-link to="" tag="i" class="el-icon-arrow-right"></router-link>
+        <router-link :to="{path:'',query:{id:this.id}}" tag="i" class="el-icon-arrow-right"></router-link>
       </div>
       <div class="more">
         <span>更多</span>
-        <router-link to="" tag="i" class="el-icon-arrow-right"></router-link>
+        <router-link :to="{path:'',query:{id:this.id}}" tag="i" class="el-icon-arrow-right"></router-link>
       </div>
     </div>
   </section>
@@ -82,42 +82,45 @@ export default {
   },
   data(){
     return{
-      homeData : [],
+      homeData : '',
       isHidden : true,
       newShow : false,
-      newData : []
+      newData : [],
+      id:''
     }
   },
   created:function(){
+    let uid = this.$route.query.id
+    this.id = uid
     this.getData(),
     this.getNew()
   },
-  match:{
-
+  watch:{
+    homeData(val,oldVal){
+      this.isHidden = false
+    }
   },
   methods:{
     getData:function () {
       axios.get(
-        'http://134.175.148.124:8087/userLogedin/homepage',
+        '/userLogedin/homepage',
       {
         params:{
-          id: 34
+          id: this.id
         }
       }).catch(error => function (){
         console.log(error)
       }).then((response) => {
         let homeData = response.data
         this.homeData.push(homeData)
-        console.log(homeData)
-        console.log(this.homeData)
       })
     },
     getNew : function () {
       axios.get(
-        'http://134.175.148.124/getBooksByUserId',
+        '/getBooksByUserId',
         {
           params:{
-            userId: 35,
+            userId: this.id,
             count:2
           }
       }).catch(error => function (){
@@ -129,7 +132,6 @@ export default {
           this.newShow = true
         }
         this.newData.push(newData)
-        console.log(this.newData)
       })
     }
   }

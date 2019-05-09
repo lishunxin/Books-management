@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>完善信息<router-link to="/signin" tag="i" class="el-icon-arrow-left"></router-link></el-header>
+    <el-header>完善信息<router-link :to="{path:'/signin',query:{id:this.id}}" tag="i" class="el-icon-arrow-left"></router-link></el-header>
     <el-main>
       <el-upload
         class="avatar-uploader"
@@ -30,7 +30,7 @@
     <p>已对以上信息加密</p>
     <el-form>
       <el-form-item>
-        <router-link to="/"><el-button type="primary" @click="tohome">进入云读</el-button></router-link>
+        <router-link :to="{path:'/',query:{id:this.id}}"><el-button type="primary" @click="tohome">进入云读</el-button></router-link>
       </el-form-item>
     </el-form>
     </el-main>
@@ -45,6 +45,7 @@
     name: "completeInformation",
     data() {
       return {
+        id:'',
         imageUrl: '',
         input:'',
         options: [{
@@ -58,23 +59,26 @@
         ageOptions: agejson
       }
     },
+    created:function(){
+      let uid = this.$route.query.id
+      this.id = uid
+    },
     methods: {
       handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
       },
       tohome:function () {
-        axios.post(
-          'http://134.175.148.124/logined/updatebasic',
+        let data =
           {
-            params: {
-              id : 34,
-              name : this.input,
-              sex : this.options.value,
-              age : this.ageOptions.value,
-              imageUrl : this.imageUrl
-            }
-        }).catch(error => function (){
-          console.log(1)
+            id : this.id,
+            name : this.input,
+            sex : this.options.value,
+            age : this.ageOptions.value,
+            imageUrl : this.imageUrl
+          }
+        axios.post(
+          '/logined/updatebasic',data
+          ).catch(error => function (){
           console.log(error)
         }).then((response) => {
           console.log(response)

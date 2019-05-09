@@ -84,7 +84,9 @@
       }
     },
     created:function () {
-      axios.get('http://134.175.148.124/getRealBooks', {
+      let uid = this.$route.query.id
+      this.id = uid
+      axios.get('/getRealBooks', {
         params: {
         }
       }).then((response) => {
@@ -97,11 +99,11 @@
     },
     methods:{
       todetails:function () {
-        this.$router.push({path:'/details'})
+        this.$router.push({path:'/details',query:{id:this.id,bookId:this.book_id}})
       }
     },
     mounted:function () {
-      axios.get('http://134.175.148.124/getNewBook', {
+      axios.get('/getNewBook', {
         params: {
           "count":"4"
         }
@@ -115,9 +117,7 @@
     }
   }
 </script>
-<router-link :to="{path: '/home', query: {'uid': this.uId}}">
 
-</router-link>
 <style scoped>
   .search{
     width:96%;

@@ -31,13 +31,19 @@
       data(){
           return{
             title_1:'',
-            book_pic:''
+            book_pic:'',
+            id:'',
+            bookId:''
           }
       },
       created:function(){
+        let uid = this.$route.query.id
+        this.id = uid
+        let book = this.$route.query.bookId
+        this.bookId = book
         axios.get('/getABook', {
           params: {
-            'bookId': "15"
+            'bookId': "this.bookId"
           }
         }).then((response) => {
           console.log(response.data)

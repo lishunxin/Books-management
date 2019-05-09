@@ -1,12 +1,12 @@
 <template>
     <div class="idManagement">
-      <header>账号管理<router-link to="/homepage" tag="i" class="el-icon-arrow-left"></router-link></header>
+      <header>账号管理<router-link :to="{path:'/homepage',query:{id:this.id}}" tag="i" class="el-icon-arrow-left"></router-link></header>
       <section>
         <div class="portrait">
           <span class="information">账号信息</span>
           <img :src="`http://134.175.148.124/img/${personal.head_pic}`">
           <span id="name">{{personal.nickname}}</span>
-          <router-link to="idDetails" tag="i" class="el-icon-arrow-right"></router-link>
+          <router-link :to="{path:'idDetails',query:{id:this.id}}" tag="i" class="el-icon-arrow-right"></router-link>
         </div>
         <div class="sexAndAge">
           <div class="sex">
@@ -22,17 +22,17 @@
           <div class="tel">
             <span class="information">手机号码</span>
             <span id="telNum">{{personal.phone}}</span>
-            <router-link to="idDetails" tag="i" class="el-icon-arrow-right"></router-link>
+            <router-link :to="{path:'/idDetails',query:{id:this.id}}" tag="i" class="el-icon-arrow-right"></router-link>
           </div>
           <div class="mailbox">
             <span class="information">邮箱</span>
             <span id="mailboxNum">{{personal.e_mail}}</span>
-            <router-link to="idDetails" tag="i" class="el-icon-arrow-right"></router-link>
+            <router-link :to="{path:'/idDetails',query:{id:this.id}}" tag="i" class="el-icon-arrow-right"></router-link>
           </div>
           <div class="signature">
             <span class="information">个性签名</span>
             <span id="signatureNum">{{personal.personality_signature}}</span>
-            <router-link to="idDetails" tag="i" class="el-icon-arrow-right"></router-link>
+            <router-link :to="{path:'/idDetails',query:{id:this.id}}" tag="i" class="el-icon-arrow-right"></router-link>
           </div>
         </div>
         <div class="area">
@@ -56,15 +56,18 @@
     data(){
       return{
         options:areajson, //areajson为从areaJson引入的json数据
-        personal:[]
+        personal:[],
+        id:''
       }
     },
     created:function(){
+      let uid = this.$route.query.id
+      this.id = uid
       axios.get(
-        'http://134.175.148.124:80/logined/userinfo',
+        '/logined/userinfo',
         {
           params:{
-            id:34
+            id:this.id
           }
         }).catch(error => function () {
           console.log(error)
@@ -81,9 +84,6 @@
             this.personal.personality_signature = '个性签名呢'
           }
        })
-    },
-    methods:{
-
     }
   }
 </script>

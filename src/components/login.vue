@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <header>登录云读<router-link to="/signin">注册</router-link></header>
+        <header>登录云读<router-link :to="{path:'/signin',query:{id:this.id}}">注册</router-link></header>
         <section>
             <div class="logo"><img src="../../src/assets/logo.png" alt="LOGO"></div>
             <el-form :model="form" :rules="rules" ref="form" class="demo-ruleForm">

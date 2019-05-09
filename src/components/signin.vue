@@ -1,6 +1,6 @@
 <template>
     <div class="signin">
-        <header>注册<router-link to="/login" tag="i" class="el-icon-arrow-left"></router-link></header>
+        <header>注册<router-link :to="{path:'/login',query:{id:this.id}}" tag="i" class="el-icon-arrow-left"></router-link></header>
         <section>
             <el-form :model="form" :rules="rules" ref="form" class="demo-ruleForm">
                 <el-form-item label="" prop="user">
@@ -13,7 +13,9 @@
                     <el-input v-model="form.repw" type="password" placeholder="确认密码"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" :disabled="isSendIng" @click="toSend('form')">下一步，完善个人信息</el-button>
+                    <router-link :to="{path:'/completeInformation',query:{id:this.id}}">
+                      <el-button type="primary" :disabled="isSendIng" @click="toSend('form')">下一步，完善个人信息</el-button>
+                    </router-link>
                 </el-form-item>
                 <el-form-item>
                     <p>注册即代表同意我们的<a href="javascript:">服务协议</a>和<a href="javascript:">隐私政策</a></p>
@@ -41,6 +43,7 @@
             }
           };
             return{
+              id:'',
               isSendIng: false,
               rules: {
                 user: [
@@ -61,6 +64,10 @@
                 }
             }
         },
+      created:function(){
+        let uid = this.$route.query.id
+        this.id = uid
+      },
         methods:{
             toSend(form){
               this.$refs[form].validate((valid) => {

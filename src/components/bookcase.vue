@@ -32,15 +32,20 @@
           return{
             title_1:'',
             options:'',
-            book_pic:''
+            book_pic:'',
+            id:''
           }
+      },
+      created:function(){
+        let uid = this.$route.query.id
+        this.id = uid
       },
       methods:{
         back:function () {
           this.$router.back(-1)
         },
         todetails:function () {
-          this.$router.push({path:'/details'})
+          this.$router.push({path:'/details',query:{id:this.id}})
 
         },
           getbook:function () {

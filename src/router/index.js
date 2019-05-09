@@ -7,7 +7,6 @@ import footerWrap from '../components/footer-wrap'
 import setting from '../components/setting'
 import login from '../components/login'
 import signin from '../components/signin'
-import writeMore from '../components/writeMore'
 import idManagement from '../components/idManagement'
 import homepage from '../components/homepage'
 import completeInformation from '../components/completeInformation'
@@ -48,11 +47,6 @@ export default new Router({
       path: '/signin',
       name: 'signin',
       component: signin
-    },
-    {
-      path: '/writeMore',
-      name: 'writeMore',
-      component: writeMore
     },
     {
       path: '/',

@@ -1,18 +1,18 @@
 <template>
     <div class="footer-wrap" id="footer-wrap">
-      <router-link :to="{path: '/#', query: {'uid': this.uId}}">
+      <router-link :to="{path: '/#', query: {'id': this.id}}">
       <img src="../../src/assets/icon/footer1.png"/>
     </router-link>
-      <router-link :to="{path: '/bookcase', query: {'uid': this.uId}}">
+      <router-link :to="{path: '/bookcase', query: {'id': this.id}}">
         <img src="../../src/assets/icon/footer2.png"/>
       </router-link>
-      <router-link :to="{path: '/putTheBook', query: {'uid': this.uId}}">
+      <router-link :to="{path: '/putTheBook', query: {'id': this.id}}">
         <img src="../../src/assets/icon/footer5.png"/>
       </router-link>
-      <router-link :to="{path: '/home', query: {'uid': this.uId}}">
+      <router-link :to="{path: '/home', query: {'id': this.id}}">
         <img src="../../src/assets/icon/footer3.png"/>
       </router-link>
-      <router-link :to="{path: '/homepage', query: {'uid': this.uId}}">
+      <router-link :to="{path: '/homepage', query: {'id': this.id}}">
         <img src="../../src/assets/icon/footer4.png"/>
       </router-link>
 
