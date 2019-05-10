@@ -71,8 +71,8 @@
                     });
                     return false;
                   }
-                  alert(res.data.status);
                   this.id = res.data.status
+                  this.$router.push('/')
                 })
                 .catch((res)=>{
                   this.isLoginIng = false;

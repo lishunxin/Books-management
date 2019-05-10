@@ -4,16 +4,16 @@
       <img src="../../src/assets/icon/footer1.png"/>
     </router-link>
       <router-link :to="{path: '/bookcase', query: {'id': this.id}}">
-        <img src="../../src/assets/icon/footer2.png"/>
+        <img src="../../src/assets/icon/footer2.png" @click="tologin"/>
       </router-link>
       <router-link :to="{path: '/putTheBook', query: {'id': this.id}}">
-        <img src="../../src/assets/icon/footer5.png"/>
+        <img src="../../src/assets/icon/footer5.png" @click="tologin"/>
       </router-link>
       <router-link :to="{path: '/home', query: {'id': this.id}}">
-        <img src="../../src/assets/icon/footer3.png"/>
+        <img src="../../src/assets/icon/footer3.png" @click="tologin"/>
       </router-link>
       <router-link :to="{path: '/homepage', query: {'id': this.id}}">
-        <img src="../../src/assets/icon/footer4.png"/>
+        <img src="../../src/assets/icon/footer4.png" @click="tologin"/>
       </router-link>
 
 
@@ -21,8 +21,26 @@
 </template>
 
 <script>
+  import axios from 'axios'
+  import qs from 'qs'
     export default {
-        name: "footerWarp"
+        name: "footerWarp",
+        methods:{
+          tologin:function(){
+            axios.get(
+              '/isLogin',{
+                params:{}
+              }
+            ).then((res) =>{
+              console.log(res.data.status)
+              if(!res.data.status){
+                this.$router.push('/login')
+              }
+            }).catch(err => function(){
+              console.log(err)
+            })
+          }
+        }
     }
 </script>
 

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '../components/HelloWorld'
 import home from '../components/home'
 import putTheBook from '../components/putTheBook'
 import footerWrap from '../components/footer-wrap'
@@ -32,11 +31,6 @@ export default new Router({
       path:'/details',
       name:'details',
       component:details
-    },
-    {
-      path: '/HelloWorld',
-      name: 'HelloWorld',
-      component: HelloWorld
     },
     {
       path: '/login',

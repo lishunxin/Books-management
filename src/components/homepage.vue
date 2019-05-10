@@ -103,10 +103,9 @@ export default {
   methods:{
     getData:function () {
       axios.get(
-        '/userLogedin/homepage',
+        '/logined/homepage',
       {
         params:{
-          id: this.id
         }
       }).catch(error => function (){
         console.log(error)
@@ -120,7 +119,6 @@ export default {
         '/getBooksByUserId',
         {
           params:{
-            userId: this.id,
             count:2
           }
       }).catch(error => function (){

@@ -11,11 +11,11 @@
         <div class="sexAndAge">
           <div class="sex">
             <span class="information">性别</span>
-            <span class="unchangeable">不可修改</span>
+            <span class="unchangeable">{{personal.sex}}</span>
           </div>
           <div class="age">
             <span class="information">年龄</span>
-            <span class="unchangeable">不可修改</span>
+            <span class="unchangeable">{{personal.age}}</span>
           </div>
         </div>
         <div class="other">
@@ -37,11 +37,7 @@
         </div>
         <div class="area">
           <span class="information">地区</span>
-          <el-cascader
-            class="newArea"
-            :options="options"
-            change-on-select
-          ></el-cascader>
+          <span id="area">{{personal.region}}</span>
         </div>
       </section>
     </div>
@@ -67,20 +63,19 @@
         '/logined/userinfo',
         {
           params:{
-            id:this.id
           }
         }).catch(error => function () {
           console.log(error)
         }).then((res) => {
           console.log(res.data)
           this.personal = res.data
-          if(this.personal.nickname === null){
+          if(!this.personal.nickname){
             this.personal.nickname = '编辑你的姓名吧'
-          }else if(this.personal.phone === null){
+          }else if(!this.personal.phone){
             this.personal.phone = '手机号码呢'
-          }else if(this.personal.e_mail === null){
+          }else if(!this.personal.e_mail){
             this.personal.e_mail = '邮箱呢'
-          }else if(this.personal.personality_signature === null){
+          }else if(!this.personal.personality_signature){
             this.personal.personality_signature = '个性签名呢'
           }
        })
@@ -133,7 +128,7 @@
   font-size:0.22rem;
   text-align:center;
 }
-.portrait #name,#telNum,#mailboxNum,#signatureNum{
+.portrait #name,#telNum,#mailboxNum,#signatureNum,#area{
   font-size: 0.22rem;
   color: rgb(193,193,193);
   line-height:1.1rem;

@@ -70,11 +70,10 @@
       tohome:function () {
         let data =
           {
-            id : this.id,
-            name : this.input,
+            nickname : this.input,
             sex : this.options.value,
             age : this.ageOptions.value,
-            imageUrl : this.imageUrl
+            head_pic : this.imageUrl
           }
         axios.post(
           '/logined/updatebasic',data
